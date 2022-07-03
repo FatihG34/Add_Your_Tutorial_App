@@ -1,24 +1,54 @@
-import React from 'react'
+import React from "react";
+import { useState } from "react";
 
-const AddTutorial = () => {
+const AddTutorial = ({ addTutorail }) => {
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addTutorail({ title: title, description: desc });
+        setDesc("");
+        setTitle("");
+    }
     return (
-        <form>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" />
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    )
-}
+        <div className="container text-center mt-4">
+            <h1 className="display-6 text-danger">Add Your Tutorials</h1>
+            <form onSubmit={handleSubmit}>
+                <div class="mb-3">
+                    <label htmlFor="title" class="form-label">
+                        Title
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        placeholder="Enter your Title..."
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
 
-export default AddTutorial
+                    />
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="desc" class="form-label">
+                        Description
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="desc"
+                        placeholder="Enter your Description..."
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
+                        required
+                    />
+                </div>
+                <button class="btn btn-danger mb-4">
+                    Submit
+                </button>
+            </form>
+        </div>
+    );
+};
+
+export default AddTutorial;
