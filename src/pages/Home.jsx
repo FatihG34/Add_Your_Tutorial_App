@@ -4,14 +4,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
-    const [tutorails, setTutorails] = useState("");
+    const [tutorials, setTutorials] = useState("");
+    console.log(tutorials);
 
     const url = `https://cw-axios-example.herokuapp.com/api/tutorials`;
 
     const getTutorials = async () => {
         try {
             const { data } = await axios.get(url);
-            setTutorails(data)
+            setTutorials(data)
         } catch (error) {
             console.log(error);
         }
@@ -31,7 +32,7 @@ const Home = () => {
     return (
         <div>
             <AddTutorial addTutorail={addTutorail} />
-            <TutorialList tutorails={tutorails} />
+            <TutorialList tutorials={tutorials} />
         </div>
     )
 }
