@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const EditTutorials = () => {
+const EditTutorials = ({ editItem, editTutorial }) => {
+    const [title, setTitleEdit] = useState(editItem.title);
+    const [desc, setDescEdit] = useState(editItem.description);
+    useEffect(() => {
+        setTitleEdit(editItem.title);
+        setDescEdit(editItem.description);
+    }, [editItem.title, editItem.description]);
+
+    const handleSave = (e) => {
+        e.preventDefault();
+        editTutorial(editItem.id, title, desc);
+        setTitleEdit("");
+        setDescEdit("");
+
+    };
     return (
         <div className="modal" tabIndex="-1" id="edit-modal">
             <div className="modal-dialog">
@@ -24,8 +38,8 @@ const EditTutorials = () => {
                                 className="form-control"
                                 id="title"
                                 placeholder="Enter your Title..."
-                                // value={title}
-                                // onChange={(e) => setTitle(e.target.value)}
+                                value={title || " "}
+                                onChange={(e) => setTitleEdit(e.target.value)}
                                 required
 
                             />
@@ -38,22 +52,15 @@ const EditTutorials = () => {
                                 type="text"
                                 className="form-control"
                                 id="desc"
-                                placeholder="Enter your Description..."
-                                // value={desc}
-                                // onChange={(e) => setDesc(e.target.value)}
+                                placeholder={desc}
+                                value={desc || " "}
+                                onChange={(e) => setDescEdit(e.target.value)}
                                 required
                             />
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                        >
-                            Close
-                        </button>
-                        <button type="button" className="btn btn-primary">
+                        <button type="button" data-bs-dismiss="modal" className="btn btn-primary" onClick={handleSave}>
                             Save changes
                         </button>
                     </div>

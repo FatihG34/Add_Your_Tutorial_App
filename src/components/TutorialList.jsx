@@ -1,10 +1,10 @@
-import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import EditTutorials from "./EditTutorials";
+import { useState } from "react";
 
 const TutorialList = ({ tutorials, deleteTutorial, editTutorial }) => {
-    //! tutorials boş geliyor bunu anlamadım ve çözemedim
+    const [editItem, setEditItem] = useState("")
     return (
         <div className="container mt-4">
             <table className="table table-striped">
@@ -34,7 +34,7 @@ const TutorialList = ({ tutorials, deleteTutorial, editTutorial }) => {
                                         role="button"
                                         data-bs-toggle="modal"
                                         data-bs-target="#edit-modal"
-                                        onClick={() => editTutorial({ id, title, description })} />
+                                        onClick={() => setEditItem(item)} />
                                     <AiFillDelete
                                         size={21}
                                         className="text-danger"
@@ -48,7 +48,7 @@ const TutorialList = ({ tutorials, deleteTutorial, editTutorial }) => {
                 </tbody>
             </table>
 
-            <EditTutorials />
+            <EditTutorials editItem={editItem} editTutorial={editTutorial} />
         </div>
     );
 };
