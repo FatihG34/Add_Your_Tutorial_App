@@ -1,8 +1,9 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
+import EditTutorials from "./EditTutorials";
 
-const TutorialList = ({ tutorials }) => {
+const TutorialList = ({ tutorials, deleteTutorial, editTutorial }) => {
     //! tutorials boş geliyor bunu anlamadım ve çözemedim
     return (
         <div className="container mt-4">
@@ -18,29 +19,36 @@ const TutorialList = ({ tutorials }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {tutorials?.map((item) => { */}
-                    {/* const [id, title, description] = item; */}
-                    {/* return ( */}
-                    <tr key={1}>
-                        <th>{ }</th>
-                        <td>{ }</td>
-                        <td>{ }</td>
-                        <td className="text-center text-nowrap">
-                            <FaEdit
-                                size={20}
-                                className="me-4 text-warning"
-                                role="button" />
-                            <AiFillDelete
-                                size={21}
-                                className="text-danger"
-                                role="button" />
-                        </td>
-                    </tr>
-                    {/* ); */}
-                    {/* }) */}
-                    {/* } */}
+                    {tutorials?.map((item) => {
+                        // console.log(typeof item);
+                        const { id, title, description } = item;
+                        return (
+                            <tr key={id}>
+                                <th>{id}</th>
+                                <td>{title}</td>
+                                <td>{description}</td>
+                                <td className="text-center text-nowrap">
+                                    <FaEdit
+                                        size={20}
+                                        className="me-4 text-warning"
+                                        role="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#edit-modal"
+                                        onClick={() => editTutorial({ id, title, description })} />
+                                    <AiFillDelete
+                                        size={21}
+                                        className="text-danger"
+                                        role="button"
+                                        onClick={() => deleteTutorial(id)} />
+                                </td>
+                            </tr>
+                        );
+                    })
+                    }
                 </tbody>
             </table>
+
+            <EditTutorials />
         </div>
     );
 };
